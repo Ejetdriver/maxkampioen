@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Max Verstappen Kampioenschap Afteller</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #ff4500;
+    }
+    
+    .countdown {
+      font-size: 48px;
+      color: #333;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Max Verstappen Kampioenschap Afteller</h1>
+  <div class="countdown" id="countdown"></div>
+
+  <script>
+    // Voer de Formule 1-agenda van 2023 in met bijbehorende datums
+    const races = [
+      { naam: 'Grand Prix 1', datum: new Date('2023-03-15T00:00:00Z') },
+      { naam: 'Grand Prix 2', datum: new Date('2023-03-22T00:00:00Z') },
+      { naam: 'Grand Prix 3', datum: new Date('2023-03-29T00:00:00Z') },
+      // Voeg hier de rest van de races toe
+    ];
+
+    // Vervang de onderstaande waarden met de werkelijke behaalde punten van Max Verstappen
+    const puntenVanMax = 350; // Vervang met de behaalde punten van Max Verstappen
+    const puntenPerRace = 25; // Vervang met het aantal punten dat Max Verstappen per race behaalt
+
+    const countdownElement = document.getElementById('countdown');
+    
+    function updateCountdown() {
+      const huidigeDatum = new Date();
+      const eerstvolgendeRace = races.find(race => race.datum > huidigeDatum);
+
+      if (eerstvolgendeRace) {
+        const tijdVerschil = eerstvolgendeRace.datum - huidigeDatum;
+        const dagen = Math.floor(tijdVerschil / (1000 * 60 * 60 * 24));
+        const uren = Math.floor((tijdVerschil % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minuten = Math.floor((tijdVerschil % (1000 * 60 * 60)) / (1000 * 60));
+        const seconden = Math.floor((tijdVerschil % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `Nog ${dagen} dagen, ${uren} uren, ${minuten} minuten, ${seconden} seconden tot ${eerstvolgendeRace.naam}`;
+      } else {
+        const racesOver = Math.ceil((puntenVanMax - 240) / puntenPerRace); // 240 punten is een fictieve drempelwaarde voor het kampioenschap
+        
+        countdownElement.innerHTML = `Nog ${racesOver} races te gaan tot Max Verstappen kampioen is!`;
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
